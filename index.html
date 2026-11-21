@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physbox | Ad-Free Web Arcade</title>
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --surface: #131822;
+      --surface-hover: #1b2230;
+      --border: #252f42;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    main {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .player-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .player-header {
+      padding: 0.85rem 1.25rem;
+      background: #0f141d;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .player-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    iframe#gameFrame {
+      width: 100%;
+      height: 70vh;
+      min-height: 480px;
+      border: none;
+      background: #000;
+      display: block;
+    }
+
+    .action-bar {
+      padding: 1rem 1.25rem;
+      background: #0f141d;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    button, .btn {
+      background: var(--surface-hover);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.15rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: 0.15s ease;
+    }
+
+    button:hover, .btn:hover {
+      border-color: var(--primary);
+      background: #1e293b;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .info-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .info-box strong {
+      color: var(--text);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span>Physbox</span>
+      <span class="badge">Ad-Free • HTML5</span>
+    </div>
+    <a class="btn" href="https://github.com/megagamesrl/physbox" target="_blank" rel="noopener">GitHub Repository ↗</a>
+  </header>
+
+  <main>
+    <div class="player-card">
+      <div class="player-header">
+        <div class="player-title">
+          <span class="status-dot"></span>
+          <span>Physbox — 3D Physics Sandbox</span>
+        </div>
+        <button onclick="reloadGame()" title="Restart Game">↻ Reload</button>
+      </div>
+
+      <iframe id="gameFrame" src="physbox.html" allow="fullscreen; pointer-lock" allowfullscreen></iframe>
+
+      <div class="action-bar">
+        <div class="btn-group">
+          <button class="btn-primary" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+          <a class="btn" id="newTabBtn" href="physbox.html" target="_blank" rel="noopener">↗ Open in New Tab</a>
+          <a class="btn" id="downloadBtn" href="physbox.html" download="physbox.html">⬇ Download Game (.html)</a>
+        </div>
+        <span style="color: var(--muted); font-size: 0.82rem;">Works offline after download</span>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>About Physbox:</strong> Test and experiment with 3D physics directly in your browser. Click <strong>Download Game (.html)</strong> to save a standalone copy for offline play on any Chromebook or PC.
+    </div>
+  </main>
+
+  <footer>
+    Physbox • Open-Source under MPL-2.0
+  </footer>
+
+  <script>
+    // Change this filename if your game file is named differently in your repo
+    const GAME_FILE = "physbox.html";
+
+    const gameFrame = document.getElementById("gameFrame");
+    const newTabBtn = document.getElementById("newTabBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    gameFrame.src = GAME_FILE;
+    newTabBtn.href = GAME_FILE;
+    downloadBtn.href = GAME_FILE;
+
+    function reloadGame() {
+      gameFrame.src = GAME_FILE;
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        gameFrame.requestFullscreen().catch(() => {
+          alert("Fullscreen was blocked by browser permissions. Try 'Open in New Tab' instead.");
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  </script>
+</body>
+</html>
